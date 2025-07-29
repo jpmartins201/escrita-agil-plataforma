@@ -11,74 +11,41 @@ const FAQ = () => {
 
   const faqItems = [
     {
-      category: "Conta e Login",
+      category: "Sobre Nossos Serviços",
       questions: [
         {
-          question: "Como faço login na plataforma?",
-          answer: "Você pode fazer login usando sua conta do Google. Clique no botão 'Entrar' e selecione 'Continuar com Google'. Após o primeiro login, você será redirecionado para completar seu perfil."
+          question: "VOCÊS VÃO ESCREVER O TRABALHO FINAL PARA MIM?",
+          answer: "Compreendo a sua solicitação, mas, infelizmente, não podemos escrever por você. Esse tipo de \"serviço\" é proibido por lei, de acordo com o Art. 299 do Código Penal. É compreensível que nem todas as pessoas tenham conhecimento sobre a ilegalidade desse ato. Estamos aqui para ajudar e orientar você da melhor maneira possível. Queremos incentivá-lo a ser o autor da sua própria história, pois acreditamos que você possui habilidades e potencial para expressar suas ideias e pensamentos de forma única.\n\nPor isso, temos diversos serviços e produtos que, com ética, te ajudam a melhorar sua produtividade acadêmica."
         },
         {
-          question: "Preciso criar uma senha?",
-          answer: "Não, utilizamos apenas login social com Google por segurança e praticidade. Você não precisa criar ou lembrar de senhas."
+          question: "NÃO SEI NEM POR ONDE COMEÇAR, COMO VOCÊS PODEM ME AJUDAR?",
+          answer: "Nós temos uma método próprio que associa as habilidades socioemocionais com a escrita ágil. Por isso, as nossas mentorias e os nossos infoprodutos envolvem o passo a passo para aprimorar seu processo de escrita tanto quanto seu desenvolvimento socioemocional. Nas mentorias, você terá o acompanhamento completo desde o planejamento até a revisão textual. O objetivo é seu, mas os resultados são nossos – isso é parceria até o fim!"
         },
         {
-          question: "Posso alterar meus dados cadastrais?",
-          answer: "Sim, você pode atualizar suas informações na página de perfil. Acesse através do menu 'Dashboard' após fazer login."
+          question: "QUAL É O DIFERENCIAL DA ESCRITA COM CIÊNCIA?",
+          answer: "É que diferentemente de nossos concorrentes que focam na formatação do texto e no detalhamento da metodologia científica. Temos um método próprio já validado com mais de 606 universitários e aplicado em mais de 1500 graduandos e pós-graduandos. O Método RAC associa habilidades socioemocionais à escrita ágil, o que potencializa seu processo de escrita acadêmica respeitando seu estilo de aprendizagem e sua competência emocional."
         }
       ]
     },
     {
-      category: "Cursos e Conteúdo",
+      category: "Prazos e Organização",
       questions: [
         {
-          question: "Quais cursos estão disponíveis?",
-          answer: "Oferecemos cursos especializados em escrita científica, incluindo TCC em 30 dias, Método RAC, Preparação para Mestrado e Artigos Científicos de Impacto."
+          question: "COMO FUNCIONA OS PRAZOS?",
+          answer: "Dependendo do ritmo de aprendizagem do universitário e do tipo de produto/serviço contratado. O prazo para cursar os infoprodutos é de 12 meses. A Mentoria RAC possui uma duração de 5 sessões, que podem ser agendadas em um período de até 6 (seis) meses, sendo a média de 45 dias entre a primeira e a última mentoria. O Grupo SuperAção consiste em oito encontros síncronos semanais, os quais ocorrem, na média, em oito semanas. Esses encontros são gravados e ficam disponíveis por 12 meses. Já a duração da Consultoria pedagógica depende do projeto de educação corporativa em questão, uma vez que cada curso exige um período de planejamento, execução e avaliação."
         },
         {
-          question: "Os cursos têm certificado?",
-          answer: "Sim, todos os nossos cursos oferecem certificado de conclusão reconhecido no meio acadêmico após a finalização de todas as atividades."
-        },
-        {
-          question: "Posso acessar os cursos offline?",
-          answer: "O conteúdo está disponível online através da nossa plataforma. Recomendamos uma conexão estável com a internet para a melhor experiência de aprendizado."
-        },
-        {
-          question: "Há prazo para conclusão dos cursos?",
-          answer: "Cada curso tem sua duração recomendada, mas você pode estudar no seu próprio ritmo. O acesso ao conteúdo não expira."
+          question: "ESTOU COM MUITA PRESSA, MESMO!!! É POSSÍVEL VOCÊS ME AJUDAREM?",
+          answer: "O prazo mínimo para TCCs, artigos e relatórios é de 10 (dez) dias. Para dissertações e teses, o prazo mínimo, é de 30 (trinta) dias. Para serviços realizados aos finais de semana ou no prazo menor de 15 dias, é cobrada uma taxa de urgência de 50% sobre o valor inicial orçado para prazos normais."
         }
       ]
     },
     {
-      category: "Pagamento e Assinatura",
+      category: "Pagamento",
       questions: [
         {
-          question: "Quais formas de pagamento são aceitas?",
-          answer: "Aceitamos cartão de crédito, débito, PIX e boleto bancário. O pagamento é processado de forma segura através de nossa plataforma."
-        },
-        {
-          question: "Posso cancelar minha assinatura?",
-          answer: "Sim, você pode cancelar sua assinatura a qualquer momento. Entre em contato com nosso suporte através da página de contato."
-        },
-        {
-          question: "Há desconto para estudantes?",
-          answer: "Oferecemos descontos especiais para estudantes de graduação e pós-graduação. Consulte nossas promoções na página de cursos."
-        }
-      ]
-    },
-    {
-      category: "Suporte Técnico",
-      questions: [
-        {
-          question: "Estou com problemas para acessar a plataforma",
-          answer: "Verifique sua conexão com a internet e tente fazer login novamente. Se o problema persistir, entre em contato conosco através da página de contato."
-        },
-        {
-          question: "O vídeo não carrega ou trava",
-          answer: "Isso pode ser devido à sua conexão com a internet. Tente pausar o vídeo por alguns segundos, reduzir a qualidade ou reiniciar a página."
-        },
-        {
-          question: "Como entro em contato com o suporte?",
-          answer: "Você pode nos contatar através da página de contato, onde encontrará nosso WhatsApp, email e formulário de contato."
+          question: "QUAIS SÃO AS FORMAS DE PAGAMENTO?",
+          answer: "O pagamento pelo serviço contratado pode ser efetuado por PIX, Link de pagamento, depósito ou transferência bancária. O serviço solicitado só é iniciado após a comprovação da quitação de 50% do valor combinado no caso da Mentoria RAC e Consultoria Pedagógica. O restante deverá ser pago pelo link de pagamento. Para cartões de crédito, é possível o parcelamento."
         }
       ]
     }

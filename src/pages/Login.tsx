@@ -73,7 +73,7 @@ const Login = () => {
         <div className="text-center">
           <Link to="/" className="flex items-center justify-center mb-2">
             <img 
-              src="/lovable-uploads/logo-footer-new.png" 
+              src="/lovable-uploads/07b51537-f063-4706-ba65-451ead001a5f.png" 
               alt="Escrita com Ciência" 
               className="h-16"
             />

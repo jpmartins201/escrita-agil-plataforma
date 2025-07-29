@@ -1,174 +1,346 @@
-
-import Hero from '@/components/Hero';
-import Features from '@/components/Features';
-import Testimonials from '@/components/Testimonials';
-import CourseCard from '@/components/CourseCard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Target, Briefcase, GraduationCap, Building } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { 
+  ArrowRight, 
+  Users, 
+  Clock, 
+  BookOpen, 
+  Target, 
+  Briefcase, 
+  TrendingUp, 
+  CheckCircle, 
+  Star,
+  GraduationCap,
+  Award,
+  ChevronRight
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroImage from '@/assets/hero-academic-professional.jpg';
 
 const Home = () => {
-  const courseTracks = [
-    {
-      icon: Target,
-      title: 'Mercado de Tecnologia',
-      description: 'Desenvolvimento de habilidades para documentação técnica, relatórios de projetos e comunicação eficaz no setor tech.',
-      courses: 12,
-      color: 'bg-primary'
-    },
-    {
-      icon: Briefcase,
-      title: 'Mercado Financeiro',
-      description: 'Escrita profissional para análises, relatórios financeiros e comunicação corporativa no setor financeiro.',
-      courses: 8,
-      color: 'bg-secondary'
-    },
-    {
-      icon: GraduationCap,
-      title: 'Mercado de Educação',
-      description: 'Metodologias de ensino, elaboração de materiais didáticos e comunicação acadêmica eficiente.',
-      courses: 15,
-      color: 'bg-primary'
-    },
-    {
-      icon: Building,
-      title: 'Mercado da Construção Civil',
-      description: 'Elaboração de relatórios técnicos, projetos executivos e documentação para o setor da construção.',
-      courses: 10,
-      color: 'bg-secondary'
-    }
+  const stats = [
+    { number: '10+', label: 'Instrutores especializados', icon: Users, color: 'text-blue-600' },
+    { number: '1.500+', label: 'Carreiras transformadas', icon: TrendingUp, color: 'text-green-600' },
+    { number: '200h+', label: 'Mentorias individuais', icon: Clock, color: 'text-purple-600' },
+    { number: '400h+', label: 'Conteúdo especializado', icon: BookOpen, color: 'text-orange-600' }
   ];
 
-  const featuredCourses = [
+  const services = [
     {
-      title: 'TCC em 30 Dias - Método Ágil',
-      description: 'Aprenda a estruturar e escrever seu TCC de forma eficiente e rápida com nossa metodologia exclusiva.',
-      instructor: 'Dr. Ana Silva',
-      duration: '20h',
-      students: 150,
-      rating: 4.9,
-      price: 'R$ 297',
-      category: 'Destaque'
-    },
-    {
-      title: 'Método RAC - Escrita Científica',
-      description: 'Destrave sua escrita em menos de 6 horas com técnicas comprovadas de produtividade acadêmica.',
-      instructor: 'Prof. Carlos Santos',
-      duration: '6h',
-      students: 200,
-      rating: 5.0,
-      price: 'R$ 97',
-      category: 'Bestseller'
+      title: 'Escrita Ágil para TCC',
+      subtitle: 'Método comprovado em 30 dias',
+      description: 'Transforme seu TCC de pesadelo em realidade. Nossa metodologia ágil já ajudou +1500 acadêmicos a conquistarem suas formações e adentrarem o mercado profissional com confiança.',
+      features: ['14 videoaulas práticas', 'Modelos prontos para cada seção', '5 bônus exclusivos', 'Suporte dedicado'],
+      cta: 'Garanta sua formação agora!',
+      buttonText: 'Quero me formar',
+      link: '/comprar/tcc-em-30-dias-metodo-agil',
+      badge: 'Mais Popular',
+      badgeColor: 'bg-green-500'
     },
     {
       title: 'Preparação para Mestrado',
-      description: 'Guia completo para processo seletivo de mestrado, incluindo projeto de pesquisa e carta de motivação.',
-      instructor: 'Dra. Maria Oliveira',
-      duration: '15h',
-      students: 80,
-      rating: 4.8,
-      price: 'R$ 197',
-      category: 'Novo'
+      subtitle: 'Seu passaporte para a pós-graduação',
+      description: 'Conquiste sua vaga no mestrado e acelere sua transição para o mercado acadêmico ou corporativo. Método testado com 95% de aprovação.',
+      features: ['12 videoaulas estratégicas', 'Modelos de projeto de pesquisa', '5 bônus sensacionais', 'Mentoria de carreira'],
+      cta: 'Transforme seu futuro hoje!',
+      buttonText: 'Quero ser aprovado',
+      link: '/comprar/preparacao-para-mestrado',
+      badge: 'Alta Conversão',
+      badgeColor: 'bg-blue-500'
+    },
+    {
+      title: 'Método RAC Profissional',
+      subtitle: 'Escrita científica para o mercado',
+      description: 'Desenvolva habilidades de escrita técnica valorizadas pelo mercado. Ideal para quem quer migrar da academia para o setor corporativo.',
+      features: ['8 capítulos práticos', 'Menos de 6h de leitura', 'Técnicas socioemocionais', 'Aplicação imediata'],
+      cta: 'Seja seu próprio diferencial!',
+      buttonText: 'Quero me destacar',
+      link: '/comprar/metodo-rac-escrita-cientifica',
+      badge: 'Novo',
+      badgeColor: 'bg-purple-500'
     }
   ];
 
+  const testimonials = [
+    {
+      text: 'Consegui minha primeira vaga como analista de pesquisa depois de aplicar o método. A diferença na minha escrita foi notável nos processos seletivos.',
+      author: 'Lorena Silva',
+      role: 'Ex-estudante de Matemática → Analista de Dados',
+      rating: 5
+    },
+    {
+      text: 'O curso superou todas as expectativas! Não só terminei meu TCC, como consegui uma posição em consultoria logo após a formatura.',
+      author: 'Luana Costa',
+      role: 'Ex-estudante de Pedagogia → Consultora Educacional',
+      rating: 5
+    },
+    {
+      text: 'Material didático excelente e aplicável. Uso as técnicas diariamente no meu trabalho em engenharia. Investimento que se paga sozinho.',
+      author: 'Mauro Santos',
+      role: 'Engenheiro Civil → Gerente de Projetos',
+      rating: 5
+    },
+    {
+      text: 'Revolução na minha produtividade! As técnicas me ajudaram tanto na faculdade quanto no estágio na indústria farmacêutica.',
+      author: 'Jéssica Oliveira',
+      role: 'Estudante de Farmácia → Estagiária P&D',
+      rating: 5
+    }
+  ];
+
+  const benefits = [
+    { text: 'Metodologia validada com +1500 profissionais', icon: Award },
+    { text: 'Suporte para transição academia → mercado', icon: TrendingUp },
+    { text: 'Networking em congressos e eventos', icon: Users },
+    { text: 'Atendimento humanizado e personalizado', icon: Target },
+    { text: 'Investimento com ROI comprovado', icon: Briefcase }
+  ];
+
   return (
-    <div className="min-h-screen">
-      <Hero />
-      
-      <Features />
-
-      {/* Course Tracks Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Trilhas de Aprendizado
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Escolha a trilha ideal para sua área de atuação e desenvolva habilidades específicas
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {courseTracks.map((track, index) => (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 p-8 hover:shadow-lg transition-shadow group">
-                <div className="flex items-start space-x-4">
-                  <div className={`${track.color} p-3 rounded-lg`}>
-                    <track.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-secondary transition-colors">
-                      {track.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4">
-                      {track.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500">{track.courses} cursos disponíveis</span>
-                      <Button variant="outline" size="sm" asChild>
-                        <Link to="/cursos">
-                          Explorar
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-indigo-600/5"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Content */}
+            <div className="text-left space-y-8">
+              <div className="space-y-6">
+                <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 text-sm font-medium">
+                  Transição Academia → Mercado Profissional
+                </Badge>
+                
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                  Transforme seu
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> conhecimento acadêmico</span> em 
+                  <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> sucesso profissional</span>
+                </h1>
+                
+                <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
+                  Ajudamos acadêmicos ambiciosos a desenvolverem habilidades de escrita técnica e científica 
+                  que abrem portas no mercado profissional. Sua transição de carreira começa aqui.
+                </p>
+              </div>
+              
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-6">
+                {stats.map((stat, index) => (
+                  <div key={index} className="flex items-center space-x-3 bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                    <div className={`${stat.color} bg-white rounded-lg p-2`}>
+                      <stat.icon className="h-6 w-6" />
                     </div>
+                    <div>
+                      <div className="text-2xl font-bold text-gray-900">{stat.number}</div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  asChild
+                >
+                  <Link to="/cursos" className="flex items-center">
+                    Acelerar minha carreira
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-2 border-gray-300 hover:border-blue-600 hover:bg-blue-50 transition-all duration-300"
+                  asChild
+                >
+                  <Link to="/contato" className="flex items-center">
+                    Falar com especialista
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Image */}
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                <img 
+                  src={heroImage} 
+                  alt="Profissional acadêmica em transição de carreira" 
+                  className="w-full h-[600px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+              
+              {/* Floating Card */}
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 border border-gray-100">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-green-100 rounded-full p-2">
+                    <CheckCircle className="h-6 w-6 text-green-600" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-gray-900">95% de aprovação</div>
+                    <div className="text-sm text-gray-600">em processos seletivos</div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <Badge className="bg-blue-100 text-blue-800 mb-4">
+              Soluções Especializadas
+            </Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              Como podemos acelerar sua transição?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Metodologias comprovadas para acadêmicos que querem se destacar no mercado profissional
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <Card key={index} className="group overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-0 bg-white">
+                <CardContent className="p-0">
+                  <div className="relative">
+                    <div className="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                    <div className="p-8">
+                      <div className="flex items-center justify-between mb-4">
+                        <Badge className={`${service.badgeColor} text-white`}>
+                          {service.badge}
+                        </Badge>
+                        <div className="text-2xl">🚀</div>
+                      </div>
+                      
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-lg font-medium text-blue-600 mb-4">
+                        {service.subtitle}
+                      </p>
+                      <p className="text-gray-600 mb-6 leading-relaxed">
+                        {service.description}
+                      </p>
+                      
+                      <div className="space-y-3 mb-8">
+                        {service.features.map((feature, idx) => (
+                          <div key={idx} className="flex items-center">
+                            <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
+                            <span className="text-gray-700">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className="border-t pt-6">
+                        <p className="text-blue-600 font-semibold text-lg mb-4">
+                          {service.cta}
+                        </p>
+                        <Button 
+                          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105" 
+                          asChild
+                        >
+                          <Link to={service.link} className="flex items-center justify-center">
+                            {service.buttonText}
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Courses */}
-      <section className="py-20 bg-gray-50">
+      {/* Testimonials Section */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Cursos em Destaque
+            <Badge className="bg-green-100 text-green-800 mb-4">
+              Sucessos Reais
+            </Badge>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              Transformações que inspiram
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Nossos cursos mais populares e eficazes para transformar sua escrita
+            <p className="text-xl text-gray-600">
+              Veja como nossos métodos mudaram carreiras e vidas
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredCourses.map((course, index) => (
-              <CourseCard key={index} {...course} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="h-full hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <CardContent className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-gray-600 italic mb-6 leading-relaxed">
+                      "{testimonial.text}"
+                    </p>
+                  </div>
+                  <div className="border-t pt-4">
+                    <p className="font-bold text-gray-900">{testimonial.author}</p>
+                    <p className="text-sm text-blue-600 font-medium">{testimonial.role}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-8">
+            Pronto para acelerar sua carreira?
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-left max-w-4xl mx-auto">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center space-x-4 bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <div className="bg-white/20 rounded-lg p-2">
+                  <benefit.icon className="h-6 w-6 text-white" />
+                </div>
+                <span className="text-white font-medium">{benefit.text}</span>
+              </div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button size="lg" asChild>
-              <Link to="/cursos">
-                Ver Todos os Cursos
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="bg-white text-blue-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-bold"
+              asChild
+            >
+              <Link to="/cursos" className="flex items-center">
+                QUERO TRANSFORMAR MINHA CARREIRA AGORA
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </div>
-        </div>
-      </section>
-
-      <Testimonials />
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-secondary to-secondary/90 text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            Pronto para transformar sua escrita?
-          </h2>
-          <p className="text-xl text-white/80 mb-8">
-            Junte-se a mais de 500 estudantes que já conquistaram seus objetivos acadêmicos e profissionais
+          
+          <p className="mt-6 text-white/80 text-lg">
+            Junte-se a +1500 profissionais que já transformaram suas carreiras
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-              <Link to="/cursos">Começar Agora</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white bg-white/10 hover:bg-white hover:text-secondary" asChild>
-              <Link to="/contato">Falar com Especialista</Link>
-            </Button>
-          </div>
         </div>
       </section>
     </div>
