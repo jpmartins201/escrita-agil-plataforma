@@ -20,17 +20,16 @@ const Dashboard = () => {
   const { getOverallProgress, getCourseProgress, loading: progressLoading } = useUserProgress();
   const { data: userQuizResult } = useUserQuizResult();
   const [availableCourses, setAvailableCourses] = useState<any[]>([]);
-  const [coursePrices, setCoursePrices] = useState<{ [key: string]: number }>({});
 
   useEffect(() => {
     const fetchAvailableCourses = async () => {
       try {
-        // Buscar cursos da nova tabela cursos
+        // Buscar cursos da tabela consolidada
         const { data: courses, error } = await supabase
           .from('cursos')
           .select('*')
           .eq('status', 'ativo')
-          .order('titulo');
+          .order('ordem_exibicao', { ascending: true });
 
         if (!error && courses) {
           const coursesWithAccess = courses.map(course => ({
@@ -40,19 +39,6 @@ const Dashboard = () => {
           }));
           
           setAvailableCourses(coursesWithAccess);
-        }
-
-        // Buscar preços dos cursos
-        const { data: prices, error: pricesError } = await supabase
-          .from('curso_precos')
-          .select('curso_slug, preco');
-
-        if (!pricesError && prices) {
-          const pricesMap = prices.reduce((acc, price) => {
-            acc[price.curso_slug] = price.preco;
-            return acc;
-          }, {});
-          setCoursePrices(pricesMap);
         }
       } catch (error) {
         console.error('Erro ao buscar cursos:', error);
@@ -331,9 +317,9 @@ const Dashboard = () => {
                     <CardTitle className="text-lg font-aristotelica">{course.titulo}</CardTitle>
                     <div className="flex items-center justify-between">
                       <Badge variant="outline">Disponível para compra</Badge>
-                      {coursePrices[course.slug] && (
+                      {course.preco && (
                         <span className="text-lg font-bold text-primary">
-                          R$ {coursePrices[course.slug].toFixed(2)}
+                          R$ {course.preco.toFixed(2)}
                         </span>
                       )}
                     </div>

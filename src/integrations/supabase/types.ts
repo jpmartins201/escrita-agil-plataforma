@@ -101,45 +101,19 @@ export type Database = {
         }
         Relationships: []
       }
-      curso_precos: {
-        Row: {
-          created_at: string
-          curso_slug: string
-          id: string
-          moeda: string
-          preco: number
-          tipo_preco: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          curso_slug: string
-          id?: string
-          moeda?: string
-          preco: number
-          tipo_preco?: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          curso_slug?: string
-          id?: string
-          moeda?: string
-          preco?: number
-          tipo_preco?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       cursos: {
         Row: {
           created_at: string
           descricao: string | null
           duracao_estimada: string | null
           instrutor: string | null
+          moeda: string | null
           nivel: string | null
+          ordem_exibicao: number | null
+          preco: number | null
           slug: string
           status: string | null
+          tipo_preco: string | null
           titulo: string
           updated_at: string
         }
@@ -148,9 +122,13 @@ export type Database = {
           descricao?: string | null
           duracao_estimada?: string | null
           instrutor?: string | null
+          moeda?: string | null
           nivel?: string | null
+          ordem_exibicao?: number | null
+          preco?: number | null
           slug: string
           status?: string | null
+          tipo_preco?: string | null
           titulo: string
           updated_at?: string
         }
@@ -159,9 +137,13 @@ export type Database = {
           descricao?: string | null
           duracao_estimada?: string | null
           instrutor?: string | null
+          moeda?: string | null
           nivel?: string | null
+          ordem_exibicao?: number | null
+          preco?: number | null
           slug?: string
           status?: string | null
+          tipo_preco?: string | null
           titulo?: string
           updated_at?: string
         }
