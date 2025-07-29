@@ -43,20 +43,20 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'contato@escritacomciencia.com',
+      value: 'contato@escritacomciencia.com.br',
       description: 'Respondemos em até 24 horas'
     },
     {
       icon: Phone,
       title: 'Telefone',
-      value: '(11) 99999-9999',
-      description: 'Seg a Sex, 9h às 18h'
+      value: '(61) 99298-0561 / (61) 98315-1509',
+      description: 'Atendimento de 08:00 às 18:00'
     },
     {
       icon: MapPin,
       title: 'Localização',
-      value: 'São Paulo, SP',
-      description: 'Atendimento presencial e online'
+      value: 'Brasília, DF - Impact Hub',
+      description: 'Edifício Íon, ala amarela - SGAN Q 601 BL H'
     }
   ];
 

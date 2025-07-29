@@ -71,9 +71,12 @@ const Login = () => {
         
         {/* Logo */}
         <div className="text-center">
-          <Link to="/" className="flex items-center justify-center space-x-2 text-white">
-            <BookOpen className="h-10 w-10" />
-            <span className="text-2xl font-bold">Escrita com Ciência</span>
+          <Link to="/" className="flex items-center justify-center mb-2">
+            <img 
+              src="/lovable-uploads/logo-footer-new.png" 
+              alt="Escrita com Ciência" 
+              className="h-16"
+            />
           </Link>
           <p className="mt-2 text-blue-100">
             Acesse sua área do aluno

@@ -16,6 +16,13 @@ interface CourseVideosProps {
   courseTitle: string;
 }
 
+// Hook para extrair ID do Vimeo de uma URL
+const getVimeoVideoId = (url: string): string | null => {
+  const regExp = /(?:vimeo)\.com.*(?:videos|video|channels|)\/([\d]+)/i;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+};
+
 // Hook para extrair ID do YouTube de uma URL
 const getYouTubeVideoId = (url: string): string | null => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -33,26 +40,45 @@ interface VideoPlayerProps {
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, videoTitle, onVideoEnd }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   
-  // Por enquanto, vamos simular que é YouTube e extrair o ID
-  const videoId = getYouTubeVideoId(videoUrl) || 'dQw4w9WgXcQ'; // fallback video
+  // Detectar se é Vimeo ou YouTube e extrair o ID correto
+  const vimeoId = getVimeoVideoId(videoUrl);
+  const youtubeId = getYouTubeVideoId(videoUrl);
   
-  // Simular o fim do vídeo após 3 segundos (para testes)
+  const isVimeo = !!vimeoId;
+  const isYoutube = !!youtubeId;
+  
+  let embedUrl = '';
+  if (isVimeo) {
+    embedUrl = `https://player.vimeo.com/video/${vimeoId}`;
+  } else if (isYoutube) {
+    embedUrl = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1`;
+  } else {
+    // Fallback para URLs diretas ou outros formatos
+    embedUrl = videoUrl;
+  }
+  
+  console.log('🎥 Video URL:', videoUrl);
+  console.log('🔗 Embed URL:', embedUrl);
+  console.log('📱 Is Vimeo:', isVimeo);
+  console.log('📺 Is YouTube:', isYoutube);
+  
+  // Simular o fim do vídeo após 10 segundos (para testes)
   React.useEffect(() => {
     const timer = setTimeout(() => {
       onVideoEnd();
-    }, 3000);
+    }, 10000);
     
     return () => clearTimeout(timer);
   }, [onVideoEnd]);
 
   return (
     <div className="w-full">
-      <div className="aspect-video w-full bg-gray-100 rounded-lg overflow-hidden">
+      <div className="aspect-video w-full bg-muted rounded-lg overflow-hidden">
         <iframe
           ref={iframeRef}
           width="100%"
           height="100%"
-          src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1`}
+          src={embedUrl}
           title={videoTitle}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
