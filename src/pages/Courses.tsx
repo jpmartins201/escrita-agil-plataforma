@@ -80,28 +80,15 @@ const Courses = () => {
     }
   ];
 
-  const handleEnrollClick = async () => {
+  const handleEnrollClick = async (courseSlug: string) => {
     if (user) {
-      // User is already logged in, navigate to dashboard
-      navigate('/dashboard');
+      // User is already logged in, navigate to purchase page
+      navigate(`/comprar/${courseSlug}`);
       return;
     }
 
-    // User not logged in, initiate login with return URL
-    setLoading(true);
-    try {
-      await signInWithGoogle('/dashboard');
-      // The redirect will be handled by AuthContext after successful login
-    } catch (error) {
-      console.error('Error during Google sign in:', error);
-      toast({
-        title: "Erro no login",
-        description: "Ocorreu um erro ao tentar fazer login. Tente novamente.",
-        variant: "destructive"
-      });
-    } finally {
-      setLoading(false);
-    }
+    // User not logged in, navigate to register page
+    navigate('/register');
   };
 
   const toggleCourseContent = (courseId: number) => {
@@ -174,21 +161,11 @@ const Courses = () => {
                     
                     <div className="flex gap-2">
                       <Button 
-                        onClick={handleEnrollClick}
+                        onClick={() => handleEnrollClick(course.slug)}
                         className="flex-1 bg-primary hover:bg-primary/90"
-                        disabled={loading}
                       >
-                        {loading ? (
-                          <div className="flex items-center space-x-2">
-                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                            <span>Conectando...</span>
-                          </div>
-                        ) : (
-                          <>
-                            <BookOpen className="h-4 w-4 mr-2" />
-                            {user ? 'Acessar Curso' : 'Inscrever-se'}
-                          </>
-                        )}
+                        <ShoppingCart className="h-4 w-4 mr-2" />
+                        {user ? 'Comprar Curso' : 'Comprar Curso'}
                       </Button>
                       
                       <Link to={`/curso/${course.slug}`}>

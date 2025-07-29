@@ -21,26 +21,42 @@ const Purchase = () => {
     const fetchCourseData = async () => {
       if (!courseSlug) return;
 
-      const { data: videos, error } = await supabase
+      // Buscar dados do curso na tabela cursos
+      const { data: curso, error: cursoError } = await supabase
+        .from('cursos')
+        .select('*')
+        .eq('slug', courseSlug)
+        .single();
+
+      if (cursoError || !curso) {
+        console.error('Curso não encontrado:', cursoError);
+        navigate('/cursos');
+        setLoading(false);
+        return;
+      }
+
+      // Buscar vídeos do curso
+      const { data: videos, error: videosError } = await supabase
         .from('course_videos')
         .select('*')
         .eq('course_slug', courseSlug)
         .order('order_index');
 
-      if (!error && videos && videos.length > 0) {
-        const course = {
-          slug: courseSlug,
-          title: getCourseTitleFromSlug(courseSlug),
-          description: getCourseDescriptionFromSlug(courseSlug),
-          preco: videos[0].preco,
-          videoCount: videos.length,
-          totalDuration: videos.reduce((sum, video) => sum + (video.duration_minutes || 0), 0)
-        };
-        setCourseData(course);
-      } else {
-        // Course not found, redirect back
-        navigate('/cursos');
+      if (videosError) {
+        console.error('Erro ao buscar vídeos:', videosError);
       }
+
+      const courseData = {
+        slug: courseSlug,
+        title: curso.titulo,
+        description: curso.descricao,
+        preco: curso.preco,
+        videoCount: videos?.length || 0,
+        totalDuration: videos?.reduce((sum, video) => sum + (video.duration_minutes || 0), 0) || 0
+      };
+      
+      console.log('Dados do curso carregados:', courseData);
+      setCourseData(courseData);
       setLoading(false);
     };
 
