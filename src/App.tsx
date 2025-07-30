@@ -8,6 +8,7 @@ import { lazy, Suspense } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ChatWidget from "./components/ChatWidget";
 import Home from "./pages/Home";
 import Institutional from "./pages/Institutional";
 import Courses from "./pages/Courses";
@@ -74,6 +75,7 @@ const App = () => (
               </Routes>
             </main>
             <Footer />
+            <ChatWidget />
           </div>
         </BrowserRouter>
       </AuthProvider>

@@ -149,6 +149,27 @@ export type Database = {
         }
         Relationships: []
       }
+      darcy_bd: {
+        Row: {
+          created_at: string
+          id: string
+          numero_mensagem: number
+          texto: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          numero_mensagem: number
+          texto: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          numero_mensagem?: number
+          texto?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           cpf: string | null

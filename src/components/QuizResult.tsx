@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,6 +15,7 @@ interface QuizResultProps {
 }
 
 export function QuizResult({ result, onUpgrade, onLogin }: QuizResultProps) {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { data: userProfile } = useUserAccess();
   
@@ -105,7 +107,7 @@ export function QuizResult({ result, onUpgrade, onLogin }: QuizResultProps) {
               {result.arquetipo.cursos_indicados.map((curso, index) => (
                 <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
                   <span className="font-medium">{curso}</span>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" onClick={() => navigate(`/curso/escrita-agil`)}>
                     Ver Curso
                   </Button>
                 </div>

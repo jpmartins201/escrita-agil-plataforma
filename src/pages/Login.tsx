@@ -70,15 +70,15 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8">
         
         {/* Logo */}
-        <div className="text-center">
-          <Link to="/" className="flex items-center justify-center mb-2">
+        <div className="text-center mb-8">
+          <Link to="/" className="flex items-center justify-center mb-4">
             <img 
               src="/lovable-uploads/07b51537-f063-4706-ba65-451ead001a5f.png" 
               alt="Escrita com Ciência" 
-              className="h-16"
+              className="h-16 mx-auto"
             />
           </Link>
-          <p className="mt-2 text-blue-100">
+          <p className="mt-4 text-blue-100">
             Acesse sua área do aluno
           </p>
         </div>
