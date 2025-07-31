@@ -140,6 +140,55 @@ export const useUserProgress = () => {
     return userProgress.some((p) => p.video_id === videoId && p.watched);
   };
 
+  const calculateUserPoints = () => {
+    const totalVideos = courseProgress.reduce((sum, cp) => sum + cp.total_videos, 0);
+    const watchedVideos = courseProgress.reduce((sum, cp) => sum + cp.watched_videos, 0);
+    const completedCourses = courseProgress.filter((cp) => cp.completed).length;
+    
+    // Sistema de pontuação: 5 pontos por vídeo, 30 pontos por curso completo
+    const videoPoints = watchedVideos * 5;
+    const coursePoints = completedCourses * 30;
+    const totalPoints = videoPoints + coursePoints;
+    
+    // Sistema de níveis baseado em pontos
+    let level = 'Iniciante';
+    let levelColor = 'slate';
+    let nextLevelPoints = 50;
+    
+    if (totalPoints >= 501) {
+      level = 'Mestre';
+      levelColor = 'purple';
+      nextLevelPoints = totalPoints; // Nível máximo
+    } else if (totalPoints >= 301) {
+      level = 'Especialista';
+      levelColor = 'orange';
+      nextLevelPoints = 501;
+    } else if (totalPoints >= 151) {
+      level = 'Estudante';
+      levelColor = 'blue';
+      nextLevelPoints = 301;
+    } else if (totalPoints >= 51) {
+      level = 'Explorador';
+      levelColor = 'green';
+      nextLevelPoints = 151;
+    }
+    
+    const pointsToNextLevel = nextLevelPoints - totalPoints;
+    const levelProgress = totalPoints >= 501 ? 100 : 
+      Math.round(((totalPoints % 50) / 50) * 100);
+    
+    return {
+      totalPoints,
+      videoPoints,
+      coursePoints,
+      level,
+      levelColor,
+      nextLevelPoints,
+      pointsToNextLevel: pointsToNextLevel > 0 ? pointsToNextLevel : 0,
+      levelProgress,
+    };
+  };
+
   const getOverallProgress = () => {
     const totalVideos = courseProgress.reduce((sum, cp) => sum + cp.total_videos, 0);
     const watchedVideos = courseProgress.reduce((sum, cp) => sum + cp.watched_videos, 0);
@@ -167,6 +216,7 @@ export const useUserProgress = () => {
     getCourseProgress,
     isVideoWatched,
     getOverallProgress,
+    calculateUserPoints,
     refreshProgress: fetchProgress,
   };
 };

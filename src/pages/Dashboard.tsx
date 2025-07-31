@@ -10,15 +10,18 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useUserAccess } from '@/hooks/useUserAccess';
 import { useUserProgress } from '@/hooks/useUserProgress';
 import { useUserQuizResult } from '@/hooks/useUserQuizResult';
+import { useUserRanking } from '@/hooks/useUserRanking';
 import { CourseProgress } from '@/components/CourseProgress';
+import { RankingModal } from '@/components/RankingModal';
 import { supabase } from '@/integrations/supabase/client';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const { data: userProfile } = useUserAccess();
-  const { getOverallProgress, getCourseProgress, loading: progressLoading } = useUserProgress();
+  const { getOverallProgress, getCourseProgress, calculateUserPoints, loading: progressLoading } = useUserProgress();
   const { data: userQuizResult } = useUserQuizResult();
+  const { globalRanking, userRank, achievements, loading: rankingLoading } = useUserRanking();
   const [availableCourses, setAvailableCourses] = useState<any[]>([]);
 
   useEffect(() => {
@@ -54,6 +57,7 @@ const Dashboard = () => {
   const availableForPurchase = availableCourses.filter(course => !course.hasAccess);
   
   const overallProgress = getOverallProgress();
+  const userPoints = calculateUserPoints();
 
   const stats = [
     { 
@@ -186,6 +190,49 @@ const Dashboard = () => {
             </Card>
           ))}
         </div>
+
+        {/* Ranking e Conquistas */}
+        {!progressLoading && overallProgress.totalVideos > 0 && (
+          <RankingModal>
+            <Card className="mb-8 cursor-pointer hover:shadow-lg transition-shadow group">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-full bg-gradient-to-r from-purple-500 to-purple-600 text-white">
+                      <Award className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground font-aristotelica">
+                        Ranking e Conquistas
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        Veja sua pontuação, nível e conquistas desbloqueadas
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge 
+                        variant="secondary" 
+                        className={`bg-gradient-to-r ${
+                          userPoints.levelColor === 'purple' ? 'from-purple-500 to-purple-600' :
+                          userPoints.levelColor === 'orange' ? 'from-orange-500 to-orange-600' :
+                          userPoints.levelColor === 'blue' ? 'from-blue-500 to-blue-600' :
+                          userPoints.levelColor === 'green' ? 'from-green-500 to-green-600' :
+                          'from-slate-500 to-slate-600'
+                        } text-white border-0`}
+                      >
+                        {userPoints.level}
+                      </Badge>
+                    </div>
+                    <p className="text-2xl font-bold text-foreground">{userPoints.totalPoints}</p>
+                    <p className="text-xs text-muted-foreground">pontos totais</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </RankingModal>
+        )}
 
         {/* Zodíaco Profissional */}
         {userQuizResult ? (
