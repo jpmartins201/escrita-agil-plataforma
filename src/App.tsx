@@ -14,6 +14,7 @@ import Institutional from "./pages/Institutional";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
 import Contact from "./pages/Contact";
+import PaymentSuccess from "./pages/PaymentSuccess";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/curso/:courseSlug" element={<CourseDetails />} />
                 <Route path="/comprar/:courseSlug" element={<Purchase />} />
                 <Route path="/contato" element={<Contact />} />
+                <Route path="/payment-success" element={<PaymentSuccess />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/dashboard" element={<Dashboard />} />

@@ -83,9 +83,32 @@ const Purchase = () => {
     return descriptions[slug] || 'Curso de alta qualidade para seu desenvolvimento acadêmico.';
   };
 
-  const handlePurchase = () => {
-    // TODO: Integrar com Asaas
-    alert('Integração com pagamento será implementada em breve!');
+  const handlePurchase = async () => {
+    if (!user || !courseSlug) return;
+    
+    try {
+      setLoading(true);
+      
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: { courseSlug }
+      });
+
+      if (error) {
+        console.error('Payment error:', error);
+        alert('Erro ao processar pagamento. Tente novamente.');
+        return;
+      }
+
+      if (data.url) {
+        // Open Stripe checkout in new tab
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Erro ao processar pagamento. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -237,9 +260,10 @@ const Purchase = () => {
                       onClick={handlePurchase}
                       className="w-full"
                       size="lg"
+                      disabled={loading}
                     >
                       <CreditCard className="h-4 w-4 mr-2" />
-                      Comprar Agora
+                      {loading ? 'Processando...' : 'Comprar Agora'}
                     </Button>
                     
                     <div className="text-center text-xs text-gray-500">

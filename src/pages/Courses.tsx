@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { usePurchaseButton } from '@/hooks/usePurchaseButton';
 import CourseVideos from '@/components/CourseVideos';
 
 const Courses = () => {
@@ -111,9 +112,20 @@ const Courses = () => {
 
         {/* Courses Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {courses.map((course) => (
-            <div key={course.id} className="space-y-4">
-              <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+          {courses.map((course) => {
+            const CourseCard = ({ course }: { course: typeof courses[0] }) => {
+              const { canAccess, buttonText, buttonAction } = usePurchaseButton(course.slug);
+              
+              const handleButtonClick = () => {
+                if (buttonAction === 'access') {
+                  navigate(`/curso/${course.slug}`);
+                } else {
+                  handleEnrollClick(course.slug);
+                }
+              };
+
+              return (
+                <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
                 <div className="aspect-video bg-gradient-to-br from-secondary to-secondary/80 relative">
                   <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
                     <Play className="h-16 w-16 text-white" />
@@ -161,11 +173,15 @@ const Courses = () => {
                     
                     <div className="flex gap-2">
                       <Button 
-                        onClick={() => handleEnrollClick(course.slug)}
+                        onClick={handleButtonClick}
                         className="flex-1 bg-primary hover:bg-primary/90"
                       >
-                        <ShoppingCart className="h-4 w-4 mr-2" />
-                        {user ? 'Comprar Curso' : 'Comprar Curso'}
+                        {buttonAction === 'access' ? (
+                          <BookOpen className="h-4 w-4 mr-2" />
+                        ) : (
+                          <ShoppingCart className="h-4 w-4 mr-2" />
+                        )}
+                        {buttonText}
                       </Button>
                       
                       <Link to={`/curso/${course.slug}`}>
@@ -185,6 +201,12 @@ const Courses = () => {
                   </div>
                 </CardContent>
               </Card>
+            );
+          };
+
+          return (
+            <div key={course.id} className="space-y-4">
+              <CourseCard course={course} />
 
               {/* Course Content */}
               <Collapsible open={expandedCourse === course.id}>
@@ -197,7 +219,7 @@ const Courses = () => {
                 </CollapsibleContent>
               </Collapsible>
             </div>
-          ))}
+          )})}
         </div>
 
         {/* CTA Section */}
