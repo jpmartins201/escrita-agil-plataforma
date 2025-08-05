@@ -7,13 +7,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Mapeamento dos cursos para price_ids do Stripe
-const coursePriceMapping: { [key: string]: string } = {
-  'tcc-em-30-dias-metodo-agil': 'price_1RrQ6GR72zHVtnWFBPbxw5bn',
-  'metodo-rac-escrita-cientifica': 'price_1RrQ7GR72zHVtnWFExample2',
-  'preparacao-para-mestrado': 'price_1RrQ8GR72zHVtnWFExample3',
-  'artigos-cientificos-de-impacto': 'price_1RrQ9GR72zHVtnWFExample4'
-};
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -45,13 +38,22 @@ serve(async (req) => {
       throw new Error("Course slug is required");
     }
 
-    // Get price_id for the course
-    const priceId = coursePriceMapping[courseSlug];
-    if (!priceId) {
-      throw new Error(`Price ID not found for course: ${courseSlug}`);
+    // Get course data and price_id from database
+    const { data: courseData, error: courseError } = await supabaseClient
+      .from('cursos')
+      .select('price_id, titulo, preco')
+      .eq('slug', courseSlug)
+      .single();
+
+    if (courseError || !courseData) {
+      throw new Error(`Course not found: ${courseSlug}`);
     }
 
-    console.log(`Creating payment for course: ${courseSlug}, user: ${user.email}, price_id: ${priceId}`);
+    if (!courseData.price_id) {
+      throw new Error(`Price ID not configured for course: ${courseSlug}`);
+    }
+
+    console.log(`Creating payment for course: ${courseSlug}, user: ${user.email}, price_id: ${courseData.price_id}`);
 
     // Initialize Stripe
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
@@ -78,7 +80,7 @@ serve(async (req) => {
       customer_email: customerId ? undefined : user.email,
       line_items: [
         {
-          price: priceId,
+          price: courseData.price_id,
           quantity: 1,
         },
       ],

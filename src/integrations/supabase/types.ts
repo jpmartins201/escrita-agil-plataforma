@@ -111,6 +111,7 @@ export type Database = {
           nivel: string | null
           ordem_exibicao: number | null
           preco: number | null
+          price_id: string | null
           slug: string
           status: string | null
           tipo_preco: string | null
@@ -126,6 +127,7 @@ export type Database = {
           nivel?: string | null
           ordem_exibicao?: number | null
           preco?: number | null
+          price_id?: string | null
           slug: string
           status?: string | null
           tipo_preco?: string | null
@@ -141,6 +143,7 @@ export type Database = {
           nivel?: string | null
           ordem_exibicao?: number | null
           preco?: number | null
+          price_id?: string | null
           slug?: string
           status?: string | null
           tipo_preco?: string | null
