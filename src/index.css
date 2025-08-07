@@ -25,6 +25,9 @@ All colors MUST be HSL.
     --secondary: 218 100% 27%; /* Azul #003488 */
     --secondary-foreground: 0 0% 100%;
 
+    /* Azul escuro para progresso */
+    --progress-dark: 218 100% 20%; /* Azul escuro #001A44 */
+
     /* Cores auxiliares baseadas na identidade */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;

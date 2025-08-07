@@ -76,14 +76,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, videoTitle, onVideo
       <div className="aspect-video w-full bg-muted rounded-lg overflow-hidden">
         <iframe
           ref={iframeRef}
-          width="100%"
-          height="100%"
           src={embedUrl}
           title={videoTitle}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="w-full h-full"
+          style={{height:'100%',width:'100%'}} 
+          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
         />
       </div>
     </div>

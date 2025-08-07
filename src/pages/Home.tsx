@@ -7,16 +7,25 @@ import {
   Clock, 
   BookOpen, 
   Target, 
-  Briefcase, 
   TrendingUp, 
   CheckCircle, 
   Star,
   GraduationCap,
   Award,
-  ChevronRight
+  ChevronRight,
+  Sparkles,
+  Play
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-academic-professional.jpg';
+import zodiacImage from '@/assets/zodiac-professional-person.jpg';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Home = () => {
   const stats = [
@@ -89,12 +98,29 @@ const Home = () => {
     }
   ];
 
+  const videoTestimonials = [
+    {
+      id: 'nmpw1bGIq4g',
+      title: 'Depoimento de Everton',
+      thumbnail: 'https://img.youtube.com/vi/nmpw1bGIq4g/maxresdefault.jpg'
+    },
+    {
+      id: 'OESWw-qduqo',
+      title: 'Depoimento de Julio',
+      thumbnail: 'https://img.youtube.com/vi/OESWw-qduqo/maxresdefault.jpg'
+    },
+    {
+      id: 'RZxbcyUD5Hs',
+      title: 'Depoimento Roseli',
+      thumbnail: 'https://img.youtube.com/vi/RZxbcyUD5Hs/maxresdefault.jpg'
+    }
+  ];
+
   const benefits = [
     { text: 'Metodologia validada com +1500 profissionais', icon: Award },
     { text: 'Suporte para transição academia → mercado', icon: TrendingUp },
     { text: 'Networking em congressos e eventos', icon: Users },
-    { text: 'Atendimento humanizado e personalizado', icon: Target },
-    { text: 'Investimento com ROI comprovado', icon: Briefcase }
+    { text: 'Atendimento humanizado e personalizado', icon: Target }
   ];
 
   return (
@@ -266,6 +292,55 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Zodíaco Profissional CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-indigo-100">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+              {/* Content */}
+              <div className="p-12 text-center lg:text-left">
+                <Sparkles className="h-16 w-16 text-purple-600 mx-auto lg:mx-0 mb-6" />
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">
+                  Qual é seu caminho no mercado profissional?
+                </h2>
+                <div className="space-y-4 text-lg text-gray-600 mb-8">
+                  <p className="font-medium text-purple-700">
+                    Seu signo não define seu futuro. Mas suas escolhas sim.
+                  </p>
+                  <p>
+                    Responda 12 perguntas criadas por especialistas em carreira e veja quais áreas profissionais mais combinam com você.
+                  </p>
+                  <p className="font-semibold text-gray-900">
+                    Descubra onde seus talentos brilham.
+                  </p>
+                </div>
+                
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg px-8 py-4"
+                  asChild
+                >
+                  <Link to="/zodiaco-profissional" className="flex items-center justify-center lg:justify-start">
+                    <Sparkles className="mr-2 h-5 w-5" />
+                    Fazer Meu Zodíaco Profissional
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Image */}
+              <div className="relative h-96 lg:h-full">
+                <img 
+                  src={zodiacImage} 
+                  alt="Pessoa refletindo sobre seu caminho profissional" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent to-white/20"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -276,11 +351,48 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               Transformações que inspiram
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 mb-12">
               Veja como nossos métodos mudaram carreiras e vidas
             </p>
           </div>
 
+          {/* Video Testimonials Carousel */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
+              Depoimentos em Vídeo
+            </h3>
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {videoTestimonials.map((video, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                      <CardContent className="p-0">
+                        <div className="relative">
+                          <iframe 
+                            width="100%" 
+                            height="240" 
+                            src={`https://www.youtube.com/embed/${video.id}`}
+                            title={video.title}
+                            frameBorder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowFullScreen
+                            className="rounded-t-lg"
+                          ></iframe>
+                        </div>
+                        <div className="p-4">
+                          <h4 className="font-semibold text-gray-900">{video.title}</h4>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+
+          {/* Text Testimonials */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="h-full hover:shadow-xl transition-shadow duration-300 border border-gray-100">
